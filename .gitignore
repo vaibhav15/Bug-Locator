@@ -1,7 +1,7 @@
-MinorProject/minor/bin/*
-MinorProject/minor/include/*
-MinorProject/minor/lib/*
-MinorProject/minor/local/*
+minor/bin/*
+minor/include/*
+minor/lib/*
+minor/local/*
 
 
 
