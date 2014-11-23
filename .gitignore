@@ -2,7 +2,7 @@ minor/bin/*
 minor/include/*
 minor/lib/*
 minor/local/*
-minor/minorproject/minorproject/settings.py
+#minor/minorproject/minorproject/settings.py
 minor/minorproject/minorproject/*.pyc
 
 
