@@ -1,2 +1,7 @@
-/bin
+MinorProject/minor/bin/*
+MinorProject/minor/include/*
+MinorProject/minor/lib/*
+MinorProject/minor/local/*
+
+
 
