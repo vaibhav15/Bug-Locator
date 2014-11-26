@@ -46,7 +46,9 @@ def login(request):
           return HttpResponse("Login successfull")
        return HttpResponse("Login unsuccessfull") 
 
-       
+def homepage(request):
+    
+    return render(request,'buglocator/index.html',{})       
 
              
 

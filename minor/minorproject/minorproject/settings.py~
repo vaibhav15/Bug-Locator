@@ -22,7 +22,7 @@ SECRET_KEY = '5aj9!bb_9o53%pmm4916jvl3gyo2$(sn2=$q0w65dbv-)p$mr('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'buglocator/templates')]
 
 TEMPLATE_DEBUG = True
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'filer',
     'easy_thumbnails',
+    'buglocator',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,3 +87,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'buglocator/static'
