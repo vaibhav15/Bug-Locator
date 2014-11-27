@@ -46,12 +46,13 @@ def login(request):
            return HttpResponse("Sorry! User not found")
     
        if check_password(request.POST["password"],user.password):
-          return HttpResponse("Login successfull")
+          return render(request,'buglocator/user.html',{'user':user.username})
        return HttpResponse("The password you entered is incorrect. Please try again") 
 
 def homepage(request):
     
     return render(request,'buglocator/index.html',{})       
 
-             
-
+def reportbug(request):
+    
+    return render(request,'buglocator/report.html',{})
