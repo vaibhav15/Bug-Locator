@@ -106,17 +106,51 @@
                     
                 
 
-                    <input type="hidden" name="count" value="1" />
-                        <div class="control-group" id="fields">
-                            <label class="control-label" for="field1">Nice Multiple Form Fields</label>
-                            <div class="controls" id="profs"> 
-                                <form class="input-append">
-                                    <div id="field"><input autocomplete="off" class="input" id="field1" name="prof1" type="text" placeholder="Type something" data-items="8"/><button id="b1" class="btn add-more" type="button">+</button></div>
-                                </form>
-                            <br>
-                            <small>Press + to add another form field :)</small>
+                    <div class="container">
+                        <div class="row">
+                          <div class="col-md-6 col-md-offset-3">
+                            <div class="well well-sm">
+                              <form class="form-horizontal" action="" method="post">
+                              <fieldset>
+                                <legend class="text-center">Report a bug</legend>
+                        
+                                <!-- Name input-->
+                                <div class="form-group">
+                                  <label class="col-md-3 control-label" for="name">Bug Name</label>
+                                  <div class="col-md-9">
+                                    <input id="name" name="name" type="text" placeholder="Bug name" class="form-control">
+                                  </div>
+                                </div>
+                        
+                                \
+                        
+                                <!-- Message body -->
+                                <div class="form-group">
+                                  <label class="col-md-3 control-label" for="description">Bug description</label>
+                                  <div class="col-md-9">
+                                    <textarea class="form-control" id="message" name="message" placeholder="Please enter your Bug description here..." rows="5"></textarea>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <label class="col-md-3 control-label" for="keywords">Keyword</label>
+                                  <div class="col-md-9">
+                                    <textarea class="form-control" id="message" name="message" placeholder="Enter keywords for the bug seperated by a ',' (comma)" rows="5"></textarea>
+                                  </div>
+                                </div>
+                        
+                                <!-- Form actions -->
+                                <div class="form-group">
+                                  <div class="col-md-12 text-right">
+                                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                  </div>
+                                </div>
+                              </fieldset>
+                              </form>
                             </div>
+                          </div>
                         </div>
+                    </div>
                     
 
 
