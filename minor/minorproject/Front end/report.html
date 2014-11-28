@@ -29,7 +29,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    
 </head>
 
 <body>
@@ -103,31 +103,25 @@
                 </div>
                 <!-- /.row -->
                 <div class="row">
-                    <form class="form-horizontal" name="reportform" method="post" action="send_form_email.php">
-                        <div class="form-group">
-                            <label class="control-label col-md-4" for="first_name">Project Name</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Project Name"/>
+                    
+                
+
+                    <input type="hidden" name="count" value="1" />
+                        <div class="control-group" id="fields">
+                            <label class="control-label" for="field1">Nice Multiple Form Fields</label>
+                            <div class="controls" id="profs"> 
+                                <form class="input-append">
+                                    <div id="field"><input autocomplete="off" class="input" id="field1" name="prof1" type="text" placeholder="Type something" data-items="8"/><button id="b1" class="btn add-more" type="button">+</button></div>
+                                </form>
+                            <br>
+                            <small>Press + to add another form field :)</small>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-4" for="last_name">Bug Name</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Bug Name"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-4" for="comment">Description</label>
-                            <div class="col-md-6">
-                                <textarea rows="6" class="form-control" id="comments" name="comments" placeholder="Description"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-8 col-sm-10">
-                                <button type="submit" class="btn btn-default">report</button>
-                            </div>
-                        </div>
-                    </form>
+                    
+
+
+
+
                 </div>
                    
             
@@ -139,6 +133,9 @@
 
     </div>
     <!-- /#wrapper -->
+    
+    
+
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
@@ -150,7 +147,7 @@
     <script src="js/plugins/morris/raphael.min.js"></script>
     <script src="js/plugins/morris/morris.min.js"></script>
     <script src="js/plugins/morris/morris-data.js"></script>
-
+    
 </body>
 
 </html>
