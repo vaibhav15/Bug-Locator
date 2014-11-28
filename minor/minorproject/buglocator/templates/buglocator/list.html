@@ -9,7 +9,7 @@
 		<!-- List of uploaded documents -->
 		{% if documents %}
 			<ul>
-			{% for documen1t in documents %}
+			{% for document in documents %}
 				<li><a href="{{ document.file.url }}">{{ document.name }}</a></li>
 			{% endfor %}
 			</ul>

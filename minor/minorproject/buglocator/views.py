@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password,check_password
+import logging
 
 def list(request):
     # Handle file upload
@@ -15,7 +16,8 @@ def list(request):
        if form.is_valid():
           newfile = Document(name=request.POST['name'],file=request.FILES['docfile'])
           newfile.save()
-   
+          extract_file() 
+                      
           return HttpResponseRedirect(reverse('buglocator.views.list'))
        return HttpResponse("Please try again")
    
@@ -24,6 +26,10 @@ def list(request):
        documents = Document.objects.all()
        # Render list page with the documents and the form
        return render(request,'buglocator/list.html',{'form':form,'documents':documents}  )
+
+def extract_file():
+    logging.debug("File extract")
+    
 
 def registration(request):
     if request.method=='POST':
