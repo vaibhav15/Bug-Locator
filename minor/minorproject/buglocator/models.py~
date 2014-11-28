@@ -1,4 +1,5 @@
 from django.db import models
+from filer.fields.file import FilerFileField
 
 
 class Document(models.Model):
