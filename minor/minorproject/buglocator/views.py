@@ -12,20 +12,14 @@ import logging
 def list(request):
     # Handle file upload
     if request.method=='POST':
-       form=DocumentForm(request.POST,request.FILES)
-       if form.is_valid():
-          newfile = Document(name=request.POST['name'],file=request.FILES['docfile'])
-          newfile.save()
-          extract_file() 
+       newfile = Document(name=request.POST['name'],file=request.FILES['docfile'])
+       newfile.save()
+       extract_file() 
                       
-          return HttpResponseRedirect(reverse('buglocator.views.list'))
-       return HttpResponse("Please try again")
+       return render(request,'buglocator/user.html',{'username':request.session.get('name',False)})
    
     else : 
-       form = DocumentForm() 
-       documents = Document.objects.all()
-       # Render list page with the documents and the form
-       return render(request,'buglocator/list.html',{'form':form,'documents':documents}  )
+       return render(request,'buglocator/user.html',{'username':request.session.get('name',False)} )
 
 def extract_file():
     logging.debug("File extract")
@@ -49,16 +43,24 @@ def login(request):
        try :
            user=User.objects.get(email=request.POST["email"])
        except:
-           return HttpResponse("Sorry! User not found")
+           return render(request,'buglocator/index.html',{})
     
        if check_password(request.POST["password"],user.password):
-          return render(request,'buglocator/user.html',{'user':user.username})
-       return HttpResponse("The password you entered is incorrect. Please try again") 
+          request.session['name']=user.username
+          return render(request,'buglocator/user.html',{'username':user.username})
 
-def homepage(request):
+       return render(request,'buglocator/index.html',{}) 
     
+    elif request.session.get('name',False):
+            return render(request,'buglocator/user.html',{'username':request.session.get('name',False)} )
+    else :
+            return render(request,'buglocator/index.html',{})
+    
+def homepage(request):
+    request.session.flush()    
     return render(request,'buglocator/index.html',{})       
 
 def reportbug(request):
     
-    return render(request,'buglocator/report.html',{})
+    return render(request,'buglocator/report.html',{'username':request.session.get('name',False)})
+
