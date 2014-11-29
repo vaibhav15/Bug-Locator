@@ -1,30 +1,38 @@
+from __future__ import print_function
 from django.shortcuts import render
-
 from forms import DocumentForm
-from models import Document
+from models import Document,Bug,Function
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password,check_password
 import logging
+import os
 
 def list(request):
     # Handle file upload
     if request.method=='POST':
-       newfile = Document(name=request.POST['name'],file=request.FILES['docfile'])
+       user = User.objects.get(username = request.session.get('name',False))
+       newfile = Document(user=user,name=request.POST['name'],file=request.FILES['docfile'])
        newfile.save()
-       extract_file() 
+       extract_file(newfile.file) 
                       
        return render(request,'buglocator/user.html',{'username':request.session.get('name',False)})
    
     else : 
        return render(request,'buglocator/user.html',{'username':request.session.get('name',False)} )
 
-def extract_file():
-    logging.debug("File extract")
-    
-
+def extract_file(file):
+    lines = file.readlines()
+    line_number = 0
+    for line in lines :     
+        line_number += 1 
+        if 'def' in line :
+            print(line_number,line[4:])           
+            function = Function(document=file,name=line[4:],line_no=line_number)
+            function.save()
+ 
 def registration(request):
     if request.method=='POST':
        try:
@@ -62,5 +70,10 @@ def homepage(request):
 
 def reportbug(request):
     
+    if request.method=="POST" :
+       user = User.objects.get(username=request.session.get('name',False))
+       bug = Bug(user=user,name=request.POST["name"],description=request.POST["message"],keyword=request.POST["keyword_message"])
+       bug.save()
+       return render(request,'buglocator/report.html',{'username':request.session.get('name',False)})
     return render(request,'buglocator/report.html',{'username':request.session.get('name',False)})
 
