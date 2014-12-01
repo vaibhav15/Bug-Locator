@@ -77,3 +77,8 @@ def reportbug(request):
        return render(request,'buglocator/report.html',{'username':request.session.get('name',False)})
     return render(request,'buglocator/report.html',{'username':request.session.get('name',False)})
 
+def locatebug(request):
+ 
+    user = User.objects.get(username=request.session.get('name',False))
+    bugs = Bug.objects.filter(user = user)      
+    return render(request,'buglocator/locate.html',{'bugs':bugs,'username':request.session.get('name',False)})

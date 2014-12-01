@@ -9,4 +9,5 @@ urlpatterns = patterns('buglocator.views',
     url(r'^registration/$','registration',name='registration'),
     url(r'^$','homepage',name='homepage'),
     url(r'^reportbug/$','reportbug',name='reportbug'),    
+    url(r'^locatebug/$','locatebug',name='locatebug'),
 )
