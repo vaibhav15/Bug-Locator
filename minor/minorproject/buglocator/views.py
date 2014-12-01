@@ -28,10 +28,11 @@ def extract_file(file):
     line_number = 0
     for line in lines :     
         line_number += 1 
-        if 'def' in line :
-            print(line_number,line[4:])           
-            function = Function(document=file,name=line[4:],line_no=line_number)
-            function.save()
+        if 'def ' in line :
+           position=line.find('def')
+           print(line_number,line[position+4:])           
+           function = Function(document=file,name=line[position+4:],line_no=line_number)
+           function.save()
  
 def registration(request):
     if request.method=='POST':
