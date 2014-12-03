@@ -108,7 +108,7 @@ def find_function(keyword,file):
            if string=="" :
               string=(str(function.name)).strip() 
            else :
-              string+=","+(str(function.name)).strip() 
+              string+=";"+(str(function.name)).strip() 
         else :
            print("Not found") 
     return string    
@@ -125,7 +125,7 @@ def showbug(request,bug_id):
     add_files=[]
     for bug in bugs:
         if bug.function:
-           funcs=(str(bug.function)).split(',')
+           funcs=(str(bug.function)).split(';')
            print(funcs)
            for func in funcs :
                response_data={}
@@ -139,9 +139,9 @@ def showbug(request,bug_id):
                if response_data :
                   list.append(response_data)
                   print(list)
-    return render(request,'buglocator/viewbug.html',{'username':request.session.get('name',False),'lists':list})
+    return render(request,'buglocator/viewbug.html',{'username':request.session.get('name',False),'lists':list,'line_no':function.line_no})
 
 def get_lines(line_no,file):
     f=open(file,'r')    
     lines = f.readlines()
-    return lines[line_no-4:line_no+4]
+    return lines[line_no-1:line_no+4]

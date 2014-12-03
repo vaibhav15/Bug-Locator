@@ -101,8 +101,7 @@
                 <div class="jumbotron">
                     {% for l in list.location_lines %}
                     <p class="text-left">{{ l }}</p>
-                    <p class="text-danger">This contains the bug</p>
-                    <p class="text-left">Normal code</p>
+                    
                     {% endfor %}
                 </div>
                 </div>
