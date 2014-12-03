@@ -11,7 +11,7 @@ class Bug(models.Model):
       user = models.ForeignKey(User)
       name = models.CharField(max_length=255)
       description = models.TextField(max_length=500)
-      keyword = models.TextField(max_length=300)
+      keywords = models.TextField(max_length=300)
       date = models.DateTimeField(editable=False)
      
       def save(self,*args,**kwargs):
@@ -24,4 +24,10 @@ class Function(models.Model):
       name = models.TextField(max_length=400)
       line_no = models.IntegerField()
            	
-   
+class BugLocation(models.Model):
+      bug = models.ForeignKey(Bug)
+      file_path = models.CharField(max_length=255)
+      keyword = models.CharField(max_length=255)
+      line_no = models.TextField(max_length=2000)
+      inFunction = models.TextField(max_length=1000) 
+    

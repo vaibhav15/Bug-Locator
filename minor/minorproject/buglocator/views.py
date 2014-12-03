@@ -1,7 +1,7 @@
 from __future__ import print_function
 from django.shortcuts import render
 from forms import DocumentForm
-from models import Document,Bug,Function
+from models import Document,Bug,Function,BugLocation
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
@@ -73,10 +73,42 @@ def reportbug(request):
     
     if request.method=="POST" :
        user = User.objects.get(username=request.session.get('name',False))
-       bug = Bug(user=user,name=request.POST["name"],description=request.POST["message"],keyword=request.POST["keyword_message"])
+       bug = Bug(user=user,name=request.POST["name"],description=request.POST["message"],keywords=request.POST["keyword_message"])
        bug.save()
+       locate_bug(bug,user)
        return render(request,'buglocator/report.html',{'username':request.session.get('name',False)})
     return render(request,'buglocator/report.html',{'username':request.session.get('name',False)})
+
+def locate_bug(bug,user):
+    hints=bug.keywords
+    keywords=hints.split(',')
+    files = Document.objects.filter(user=user)
+    for file in files:
+        if file :
+           lines = file.file.readlines()
+           for keyword in keywords :
+               found=[]  
+               found_functions=find_function(keyword,files)
+               print(keyword)
+               line_number = 0
+               for line in lines :
+                   line_number += 1
+                   if keyword.lower() in line.lower() :
+                      print(keyword,line_number)
+                      found.append(line_number)
+               buglocation=BugLocation(bug=bug,file_path=file.file,keyword=keyword,line_no=found,inFunction=found_functions)
+               buglocation.save()
+
+def find_function(keyword,files):
+    for file in files:
+        func=[]
+        functions = Function.objects.filter(document=file.file)
+        for function in functions:
+            if keyword.lower() in function.name.lower() :
+               func.append((str(function.name)).strip())
+            else :
+               print("Not found") 
+        return func    
 
 def locatebug(request):
  

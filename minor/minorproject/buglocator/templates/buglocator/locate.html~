@@ -119,7 +119,7 @@
                                     <tr>
                                         <td>{{ bug.name }}</td>
                                         <td>{{ bug.description }}</td>
-                                        <td>{{ bug.keywords }}</td>
+                                        <td>{{ bug.keyword }}</td>
                                         <td>{{ bug.date }}</td>
                                     </tr>
                                     {% endfor %}
