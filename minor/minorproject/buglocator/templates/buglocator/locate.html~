@@ -117,9 +117,9 @@
                                 <tbody>
                                     {% for bug in bugs %}
                                     <tr>
-                                        <td>{{ bug.name }}</td>
+                                        <td><a href="{% url showbug bug.id %}">{{ bug.name }}</a></td>
                                         <td>{{ bug.description }}</td>
-                                        <td>{{ bug.keyword }}</td>
+                                        <td>{{ bug.keywords }}</td>
                                         <td>{{ bug.date }}</td>
                                     </tr>
                                     {% endfor %}

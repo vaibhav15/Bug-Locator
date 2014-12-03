@@ -88,7 +88,7 @@ def locate_bug(bug,user):
            lines = file.file.readlines()
            for keyword in keywords :
                found=[]  
-               found_functions=find_function(keyword,files)
+               found_functions=find_function(keyword,file)
                print(keyword)
                line_number = 0
                for line in lines :
@@ -96,22 +96,52 @@ def locate_bug(bug,user):
                    if keyword.lower() in line.lower() :
                       print(keyword,line_number)
                       found.append(line_number)
-               buglocation=BugLocation(bug=bug,file_path=file.file,keyword=keyword,line_no=found,inFunction=found_functions)
+               buglocation=BugLocation(bug=bug,file_path=file.file,keyword=keyword,line_no=found,function=found_functions)
                buglocation.save()
 
-def find_function(keyword,files):
-    for file in files:
-        func=[]
-        functions = Function.objects.filter(document=file.file)
-        for function in functions:
-            if keyword.lower() in function.name.lower() :
-               func.append((str(function.name)).strip())
-            else :
-               print("Not found") 
-        return func    
+def find_function(keyword,file):
+    #for file in files:
+    string=""
+    functions = Function.objects.filter(document=file.file)
+    for function in functions:
+        if keyword.lower() in function.name.lower() :
+           if string=="" :
+              string=(str(function.name)).strip() 
+           else :
+              string+=","+(str(function.name)).strip() 
+        else :
+           print("Not found") 
+    return string    
 
 def locatebug(request):
  
     user = User.objects.get(username=request.session.get('name',False))
     bugs = Bug.objects.filter(user = user)      
     return render(request,'buglocator/locate.html',{'bugs':bugs,'username':request.session.get('name',False)})
+
+def showbug(request,bug_id):
+    bugs = BugLocation.objects.filter(bug=bug_id)
+    list=[]
+    add_files=[]
+    for bug in bugs:
+        if bug.function:
+           funcs=(str(bug.function)).split(',')
+           print(funcs)
+           for func in funcs :
+               response_data={}
+               print(func)
+               try:
+                  function=Function.objects.get(name__contains=func)
+               except:
+                  print("Not Found")
+               response_data['location_lines']=get_lines(function.line_no,bug.file_path)
+               response_data['filename']=bug.file_path
+               if response_data :
+                  list.append(response_data)
+                  print(list)
+    return render(request,'buglocator/viewbug.html',{'username':request.session.get('name',False),'lists':list})
+
+def get_lines(line_no,file):
+    f=open(file,'r')    
+    lines = f.readlines()
+    return lines[line_no-4:line_no+4]

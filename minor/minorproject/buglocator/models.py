@@ -21,7 +21,7 @@ class Bug(models.Model):
 
 class Function(models.Model):
       document = models.CharField(max_length=255)
-      name = models.TextField(max_length=400)
+      name = models.CharField(max_length=400)
       line_no = models.IntegerField()
            	
 class BugLocation(models.Model):
@@ -29,5 +29,5 @@ class BugLocation(models.Model):
       file_path = models.CharField(max_length=255)
       keyword = models.CharField(max_length=255)
       line_no = models.TextField(max_length=2000)
-      inFunction = models.TextField(max_length=1000) 
+      function = models.TextField(max_length=1000)
     
